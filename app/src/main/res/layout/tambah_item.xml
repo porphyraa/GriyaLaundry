@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textBerat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="BERAT (KG)"
+        android:textSize="7pt" />
+
+    <EditText
+        android:id="@+id/editBerat"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgBgTambahItem"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="24dp"
+        android:inputType="number"
+        android:textSize="7pt" />
+
+    <TextView
+        android:id="@+id/textLayanan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="58dp"
+        android:text="LAYANAN"
+        android:textSize="7pt" />
+
+    <RadioGroup
+        android:id="@+id/radioLayanan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="24dp">
+
+        <RadioButton
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:text="REGULER"
+            android:id="@+id/radio1"
+            android:textSize="7pt" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:text="EKSPRES"
+            android:textSize="7pt" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="128dp"
+        android:text="TGL. MASUK"
+        android:textSize="7pt" />
+
+    <TextView
+        android:id="@+id/textTglMasuk"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="7pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="158dp"
+        android:text="TGL. KELUAR"
+        android:textSize="7pt" />
+
+    <TextView
+        android:id="@+id/textTglKeluar"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="158dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="7pt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="188dp"
+        android:text="HARGA"
+        android:textSize="7pt" />
+
+    <TextView
+        android:id="@+id/textHarga"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imgBgTambahItem"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginEnd="24dp"
+        android:text="IDR 0"
+        android:textSize="7pt" />
+
+    <ImageView
+        android:id="@+id/imgBgTambahItem"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_bg_tambah" />
+
+</RelativeLayout>

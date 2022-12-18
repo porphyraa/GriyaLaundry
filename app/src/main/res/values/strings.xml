@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Griya Laundry</string>
+
+    <string name="filter_prompt">Filter</string>
+    <string-array name="filter">
+        <item>All</item>
+        <item>Name</item>
+        <item>ID</item>
+        <item>Date</item>
+        <item>Paid</item>
+        <item>Unpaid</item>
+    </string-array>
+
+    <string name="nothing">Found nothing!</string>
+    <string name="search">search</string>
+    <string name="error">Error inserting data!</string>
+    <string name="success">Data have been inserted into the database!</string>
+</resources>

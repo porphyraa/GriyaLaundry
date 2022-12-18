@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="GRIYA LAUNDRY"
+        android:textColor="#469FD1"
+        android:textSize="16pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="LIST TRANSAKSI"
+        android:textColor="#525252"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true" />
+
+    <EditText
+        android:id="@+id/editFilter"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subtitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="#525252"
+        android:textSize="7pt" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvList"
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:layout_above="@+id/bgList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-20dp"
+        android:scrollbars="vertical" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/bgList"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-48dp"
+        android:src="@drawable/ic_bg_button" />
+
+    <Button
+        android:id="@+id/btnTransaksi_list"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_button_unclicked"
+        android:text="TRANSAKSI"
+        android:textColor="#FFFFFF"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnList_transaksi"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_button_clicked"
+        android:text="LIST"
+        android:textColor="#FFFFFF"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+</RelativeLayout>
