@@ -1,4 +1,4 @@
-# GriyaLaundry
+# Griya Laundry
 
 ### Kontributor:
 
