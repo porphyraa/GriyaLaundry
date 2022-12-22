@@ -5,11 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.griyalaundry.database.Griya
+import com.example.griyalaundry.database.GriyaDatabase
+import com.example.griyalaundry.database.GriyaUtil
+import io.reactivex.Observable
 import java.time.LocalDate
 
 class Transaksi : AppCompatActivity(), View.OnClickListener {
@@ -29,6 +36,31 @@ class Transaksi : AppCompatActivity(), View.OnClickListener {
 
         findViewById<Button>(R.id.btnList_transaksi).setOnClickListener(this)
         findViewById<Button>(R.id.btnTambah).setOnClickListener(this)
+        findViewById<Button>(R.id.btnSimpan).setOnClickListener {
+            val list = viewModel.getList()
+            val database = GriyaDatabase.getInstance(context = this).griyaDao()
+            val griyaList = arrayListOf<Griya>()
+            for (i in 0 until (list.value!!.size)){
+                val holder = rvTransaksi.getChildAt(i)
+
+                val id = database.getId()
+                val nama = findViewById<EditText>(R.id.namaTextBox).text.toString()
+                val berat = list.value!![i].berat
+                val regular = list.value!![i].isReguler
+                val masuk = list.value!![i].tglMasuk
+                val keluar = holder.findViewById<TextView>(R.id.textTglKeluar).text.toString()
+                val ispaid = false
+
+                Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+
+                griyaList.add(
+                    Griya(
+                        tId = id.toString(), nama = nama, berat = berat, isRegular = regular, masuk = masuk, keluar = keluar, isPaid = ispaid
+                    )
+                )
+            }
+            database.insertAll(griyaList)
+        }
     }
 
     override fun onClick(v: View?) {

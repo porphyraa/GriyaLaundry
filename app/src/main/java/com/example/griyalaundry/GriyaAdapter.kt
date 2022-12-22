@@ -1,16 +1,25 @@
 package com.example.griyalaundry
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.griyalaundry.database.Griya
+import com.example.griyalaundry.database.GriyaDao
+import com.example.griyalaundry.database.GriyaDatabase
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.list_item.view.*
 import kotlin.collections.List
 
 class GriyaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    lateinit var database : GriyaDao
+    lateinit var context: Context
 
     var compositeDisposable = CompositeDisposable()
 
@@ -47,9 +56,33 @@ class GriyaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         holder.itemView.imgBgListItem.setImageResource(bg)
         holder.itemView.textIn.setTextColor(Color.parseColor(col))
         holder.itemView.textOut.setTextColor(Color.parseColor(col))
+
+        holder.itemView.btnKonfirmasi.setOnClickListener {
+            val builder = AlertDialog.Builder(context)
+            builder.setMessage("Konfirmasi?")
+                .setCancelable(false)
+                .setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
+                    database.updateIsPaid(griya.nama, griya.berat, griya.isRegular)
+
+                    griya.isPaid = true
+                    val nama = griya.nama
+                    val berat = griya.berat
+                    val regular = griya.isRegular
+
+                    Log.d("abc", "cek konfirmasi $nama, $berat, $regular")
+                    notifyDataSetChanged()
+                }
+                .setNegativeButton("Tidak"){ dialogInterface: DialogInterface, i: Int ->
+                    dialogInterface.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        database = GriyaDatabase.getInstance(context = parent.context).griyaDao()
+        context = parent.context
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         )
