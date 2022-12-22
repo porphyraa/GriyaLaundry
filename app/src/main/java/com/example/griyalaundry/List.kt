@@ -44,6 +44,7 @@ class List : BaseSearchActivity() {
                 hideProgress()
                 showResult(it)
             }
+
     }
 
     @Override

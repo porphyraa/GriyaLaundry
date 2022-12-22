@@ -23,6 +23,12 @@ interface GriyaDao {
     @Query("SELECT * FROM griyas WHERE isPaid=:i")
     fun findByIsPaid(i: Int): List<Griya>
 
+    @Query("UPDATE griyas SET isPaid= 1 WHERE nama = :nama  AND berat = :berat AND isRegular = :isRegular ")
+    fun updateIsPaid(nama: String, berat: Float, isRegular: Boolean)
+
+    @Query("SELECT MAX(id) FROM griyas")
+    fun getId(): Long
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(griya: List<Griya>): List<Long>
 }
