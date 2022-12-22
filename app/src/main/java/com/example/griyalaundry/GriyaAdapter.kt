@@ -59,7 +59,7 @@ class GriyaAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         holder.itemView.btnKonfirmasi.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-            builder.setMessage("Konfirmasi?")
+            builder.setMessage("Konfirmasi pembayaran?")
                 .setCancelable(false)
                 .setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
                     database.updateIsPaid(griya.nama, griya.berat, griya.isRegular)

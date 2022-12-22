@@ -46,6 +46,18 @@
         android:textColor="#525252"
         android:textSize="7pt" />
 
+    <EditText
+        android:id="@+id/editDateFilter"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/subtitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="#525252"
+        android:textSize="7pt"
+        android:visibility="invisible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvList"
         android:layout_width="320dp"

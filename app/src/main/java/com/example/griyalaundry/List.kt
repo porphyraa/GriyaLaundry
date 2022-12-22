@@ -1,9 +1,11 @@
 package com.example.griyalaundry
 
+import android.app.DatePickerDialog
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.*
 import com.example.griyalaundry.database.Griya
@@ -13,6 +15,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_list.*
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import kotlin.collections.List
 
@@ -20,6 +25,7 @@ class List : BaseSearchActivity() {
 
     private lateinit var disposable: Disposable
 
+    var cal = Calendar.getInstance()
     private var filterIndex: Int = 0
 
     override fun onStart() {
@@ -85,8 +91,22 @@ class List : BaseSearchActivity() {
             .debounce(1000, TimeUnit.MILLISECONDS)
     }
 
+    val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+        override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+            val editFilter = findViewById<EditText>(R.id.editFilter)
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, monthOfYear)
+            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+            val myFormat = "dd/MM/yyyy" // mention the format you need
+            val sdf = SimpleDateFormat(myFormat, Locale.US)
+            editFilter.setText(sdf.format(cal.getTime()))
+        }
+    }
+
     private fun setSpinner() {
         val editFilter = findViewById<EditText>(R.id.editFilter)
+        val editDateFilter = findViewById<EditText>(R.id.editDateFilter)
         val spinner = findViewById<Spinner>(R.id.spinner)
         val adapter = ArrayAdapter.createFromResource(
             this, R.array.filter, R.layout.filter_list
@@ -98,7 +118,13 @@ class List : BaseSearchActivity() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 editFilter.setText("")
                 filterIndex = pos
+                if (filterIndex == 3)
+                    editDateFilter.visibility = View.VISIBLE
+                else
+                    editDateFilter.visibility = View.INVISIBLE
+
                 Log.d("abc", "${spinner.selectedItem.toString()} $pos $filterIndex")
+
                 when (filterIndex) {
                     0 -> {
                         editFilter.visibility = View.INVISIBLE
@@ -113,8 +139,22 @@ class List : BaseSearchActivity() {
                         editFilter.inputType = InputType.TYPE_CLASS_NUMBER
                     }
                     3 -> {
-                        editFilter.visibility = View.VISIBLE
+                        editFilter.visibility = View.INVISIBLE
                         editFilter.inputType = InputType.TYPE_CLASS_DATETIME
+
+                        editDateFilter.setOnTouchListener(View.OnTouchListener { v, event ->
+                            if (MotionEvent.ACTION_UP == event.action) {
+                                DatePickerDialog(
+                                    this@List,
+                                    dateSetListener,
+                                    // set DatePickerDialog to point to today's date when it loads up
+                                    cal.get(Calendar.YEAR),
+                                    cal.get(Calendar.MONTH),
+                                    cal.get(Calendar.DAY_OF_MONTH)
+                                ).show()
+                            }
+                            true // return is important...
+                        })
                     }
                     4 -> {
                         editFilter.visibility = View.INVISIBLE
