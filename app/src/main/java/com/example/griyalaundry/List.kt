@@ -147,13 +147,12 @@ class List : BaseSearchActivity() {
                                 DatePickerDialog(
                                     this@List,
                                     dateSetListener,
-                                    // set DatePickerDialog to point to today's date when it loads up
                                     cal.get(Calendar.YEAR),
                                     cal.get(Calendar.MONTH),
                                     cal.get(Calendar.DAY_OF_MONTH)
                                 ).show()
                             }
-                            true // return is important...
+                            true
                         })
                     }
                     4 -> {

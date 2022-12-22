@@ -22,7 +22,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textSize="7pt" />
 
     <TextView

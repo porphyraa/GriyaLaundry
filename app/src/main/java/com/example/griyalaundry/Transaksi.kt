@@ -1,8 +1,11 @@
 package com.example.griyalaundry
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -36,31 +39,7 @@ class Transaksi : AppCompatActivity(), View.OnClickListener {
 
         findViewById<Button>(R.id.btnList_transaksi).setOnClickListener(this)
         findViewById<Button>(R.id.btnTambah).setOnClickListener(this)
-        findViewById<Button>(R.id.btnSimpan).setOnClickListener {
-            val list = viewModel.getList()
-            val database = GriyaDatabase.getInstance(context = this).griyaDao()
-            val griyaList = arrayListOf<Griya>()
-            for (i in 0 until (list.value!!.size)){
-                val holder = rvTransaksi.getChildAt(i)
-
-                val id = database.getId()
-                val nama = findViewById<EditText>(R.id.namaTextBox).text.toString()
-                val berat = list.value!![i].berat
-                val regular = list.value!![i].isReguler
-                val masuk = list.value!![i].tglMasuk
-                val keluar = holder.findViewById<TextView>(R.id.textTglKeluar).text.toString()
-                val ispaid = false
-
-                Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT).show()
-
-                griyaList.add(
-                    Griya(
-                        tId = id.toString(), nama = nama, berat = berat, isRegular = regular, masuk = masuk, keluar = keluar, isPaid = ispaid
-                    )
-                )
-            }
-            database.insertAll(griyaList)
-        }
+        findViewById<Button>(R.id.btnSimpan).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -79,6 +58,59 @@ class Transaksi : AppCompatActivity(), View.OnClickListener {
                 val item = TambahModel(0.0f, true, "$dd/$mm/$yy")
                 val viewModel = ViewModelProvider(this).get(TambahViewModel::class.java)
                 viewModel.addModel(item)
+            }
+            R.id.btnSimpan -> {
+                val rvTransaksi = findViewById<RecyclerView>(R.id.rvTambah)
+                val viewModel = ViewModelProvider(this).get(TambahViewModel::class.java)
+
+                val editNama = findViewById<EditText>(R.id.namaTextBox).text.toString()
+
+                if (editNama.isNullOrEmpty()) {
+                    Toast.makeText(this, "Nama tidak  boleh kosong", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val builder = AlertDialog.Builder(this)
+                    builder.setMessage("Tambah transaksi?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya"){ dialogInterface: DialogInterface, i: Int ->
+                            val list = viewModel.getList()
+                            val database = GriyaDatabase.getInstance(context = this).griyaDao()
+                            val griyaList = arrayListOf<Griya>()
+                            for (i in 0 until (list.value!!.size)) {
+                                val holder = rvTransaksi.getChildAt(i)
+
+                                val id = database.getId()
+                                val nama = findViewById<EditText>(R.id.namaTextBox).text.toString()
+                                val berat = list.value!![i].berat
+                                val regular = list.value!![i].isReguler
+                                val masuk = list.value!![i].tglMasuk
+                                val keluar =
+                                    holder.findViewById<TextView>(R.id.textTglKeluar).text.toString()
+                                val ispaid = false
+
+                                Toast.makeText(this, "Transaksi berhasil ditambahkan", Toast.LENGTH_SHORT)
+                                    .show()
+
+                                griyaList.add(
+                                    Griya(
+                                        tId = id.toString(),
+                                        nama = nama,
+                                        berat = berat,
+                                        isRegular = regular,
+                                        masuk = masuk,
+                                        keluar = keluar,
+                                        isPaid = ispaid
+                                    )
+                                )
+                            }
+                            database.insertAll(griyaList)
+                        }
+                        .setNegativeButton("Tidak"){ dialogInterface: DialogInterface, i: Int ->
+                            dialogInterface.dismiss()
+                        }
+                    val alert = builder.create()
+                    alert.show()
+                }
             }
         }
     }
